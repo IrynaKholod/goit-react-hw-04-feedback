@@ -11,44 +11,60 @@ export class App extends Component{
       good: 0,
       neutral: 0,
       bad: 0,
-      totalFidback: 0,
-      PositivePercentage: 0};
+      };
+
+      clickOnBtn = feedback => {
+        this.setState(prevState => {
+          return {
+            [feedback]: prevState[feedback] + 1,
+          };
+        });
+      };
   
-    handleGood = () => {
-      this.setState(prevState => ({
-        good: prevState.good + 1,
-        totalFidback: prevState.totalFidback + 1
-      }));
-    };
-    handleNeutral = () => {
-      this.setState(prevState => ({
-        neutral: prevState.neutral + 1,
-        totalFidback: prevState.totalFidback + 1
-      }));
-    };
-    handleBad = () => {
-      this.setState(prevState => ({
-        bad: prevState.bad + 1,
-        totalFidback: prevState.totalFidback + 1
-      }));
-    };
+    // handleGood = () => {
+    //   this.setState(prevState => ({
+    //     good: prevState.good + 1,
+    //     totalFidback: prevState.totalFidback + 1
+    //   }));
+    // };
+    // handleNeutral = () => {
+    //   this.setState(prevState => ({
+    //     neutral: prevState.neutral + 1,
+    //     totalFidback: prevState.totalFidback + 1
+    //   }));
+    // };
+    // handleBad = () => {
+    //   this.setState(prevState => ({
+    //     bad: prevState.bad + 1,
+    //     totalFidback: prevState.totalFidback + 1
+    //   }));
+    // };
   
+    countTotalFeedback = () => {
+      const { good, neutral, bad } = this.state;
+  
+      return this.total = good + neutral + bad;
+    }
+
     countPositiveFeedback = () => {
-      return `${
-        Math.round((this.state.good / this.state.totalFidback) * 100) || 0
+        return `${
+        Math.round((this.state.good / this.total) * 100) || 0
       }%`;
     };
   
     render() {
+      const total= this.countTotalFeedback();
       return (
       <div className={css.container}> 
-          <FeedbackOptions
-            onGood={this.handleGood}
-            onNeutral={this.handleNeutral}
-            onBad={this.handleBad}
+       <div className={css.statisticBox}>   
+   
+      <h2>Please leave your feedback</h2>
+           <FeedbackOptions
+            options={this.state}
+            onLeaveFeedback={this.clickOnBtn}
           />
-          
-           {this.state.totalFidback !== 0 ? 
+      </div >
+           {total !== 0 ? 
             <Statistic
             good={this.state.good}
             neutral={this.state.neutral}
