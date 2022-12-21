@@ -1,6 +1,6 @@
 import React from 'react';
 // import css from './Notification.module.css';
-import PropTypes from 'prop-types';
+
 
 
 function Notification({ message }) {
@@ -17,6 +17,3 @@ function Notification({ message }) {
 
 export default Notification;
 
-Notification.prototype = {
-  text: PropTypes.string,
-};
