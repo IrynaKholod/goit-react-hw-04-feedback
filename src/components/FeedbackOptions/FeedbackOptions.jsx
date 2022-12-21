@@ -1,5 +1,5 @@
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from './FeedbackOptions.module.css';
 // import {
 //   BsFillEmojiHeartEyesFill,
@@ -22,22 +22,29 @@ import css from './FeedbackOptions.module.css';
 //   </div>
 // );
 
+const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+  return (
+    <>
+      <h2>Please leave your feedback</h2>
+      {options.map(item => (
+        <button
+          className={css.button}
+          type="button"
+          name={item}
+          onClick={() => onLeaveFeedback(item)}
+          key={item}
 
-const FeedbackOptions = ({ options, onLeaveFeedback }) =>
-  Object.keys(options).map(item => (
-    <button className={css.button}
-      type="button"
-      name={item}
-      onClick={() => onLeaveFeedback(item)}
-      key={item}
-      
-      // className={item}
-    >
-      {item}
-    </button>
-  ));
+          // className={item}
+        >
+          {item}
+        </button>
+      ))}
+    </>
+  );
+};
 
-
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string.isRequired),
+  onLeaveFeedback: PropTypes.func.isRequired,
+};
 export default FeedbackOptions;
-
-
